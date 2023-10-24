@@ -1,6 +1,7 @@
 #include "interrupts.c"
 #include "print.c"
 
-void main() {
-    print("Hello world!");
+void main()
+{
+    printi(1337);
 }

@@ -16,7 +16,6 @@ void keyboard_int_handler()
         put_char(c, 0, 1);
         c++;
     }
-
 }
 
 void timer_int_handler() {}
