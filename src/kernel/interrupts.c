@@ -13,7 +13,7 @@ void keyboard_int_handler()
 
     if (up)
     {
-        put_char(c, 0, 1);
+        print_char(c, 0, 1);
         c++;
     }
 }
