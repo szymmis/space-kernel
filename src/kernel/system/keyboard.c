@@ -20,50 +20,50 @@ void handle_keyboard_input(int scancode)
 
 void on_key_down(int keycode)
 {
-    clear_screen();
+    cls();
     if (keycode == ARROW_LEFT)
     {
-        print("Left", 10, 10);
+        print("Left");
     }
     else if (keycode == ARROW_RIGHT)
     {
-        print("Right", 10, 10);
+        print("Right");
     }
     else if (keycode == ARROW_UP)
     {
-        print("Up", 10, 10);
+        print("Up");
     }
     else if (keycode == ARROW_DOWN)
     {
-        print("Down", 10, 10);
+        print("Down");
     }
     else if (keycode == ENTER)
     {
-        print("Enter", 10, 10);
+        print("Enter");
     }
     else if (keycode == SPACEBAR)
     {
-        print("Space", 10, 10);
+        print("Space");
     }
     else
     {
-        print("Key Down", 10, 10);
+        print("Key Down");
     }
 }
 
 void on_key_up(int keycode)
 {
-    clear_screen();
+    cls();
     if (keycode == SPACEBAR)
     {
-        print("Space Up", 10, 10);
+        print("Space Up");
     }
     else if (keycode == ENTER)
     {
-        print("Enter Up", 10, 10);
+        print("Enter Up");
     }
     else
     {
-        print("Key Up", 10, 10);
+        print("Key Up");
     }
 }

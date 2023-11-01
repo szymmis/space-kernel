@@ -1,20 +1,24 @@
 #include "print.h"
 #include "draw.h"
 
-void print(char *str, int x, int y)
+int off_x, off_y;
+
+void print(char *str)
 {
     char index = 0;
     int offset = 0;
     while (str[index] != '\0')
     {
         char c = str[index];
-        print_char(c, offset + x, y);
+        draw_char(c, offset, off_y);
         offset += glyph_width(c);
         index++;
     }
+
+    off_y += 10;
 }
 
-void printi(int n, int x, int y)
+void printi(int n)
 {
     char str[12], i = 0;
     while (n > 0)
@@ -32,10 +36,17 @@ void printi(int n, int x, int y)
         rev_str[length - 1 - i] = str[i];
     }
 
-    print(rev_str, x, y);
+    print(rev_str);
 }
 
-void print_char(char c, int x, int y)
+void cls()
+{
+    clear_screen();
+    off_x = 0;
+    off_y = 0;
+}
+
+void draw_char(char c, int x, int y)
 {
     if (c == '0')
     {

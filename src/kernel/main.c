@@ -12,13 +12,13 @@ struct Message
 
 void main()
 {
-    print("Hello world", 10, 10);
-    print("abcdefghijklmnoprstuwxyz", 10, 20);
-    print("ABCDEFGHIJKLMNOPRSTUWXYZ", 10, 30);
+    print("Hello world");
+    print("abcdefghijklmnoprstuwxyz");
+    print("ABCDEFGHIJKLMNOPRSTUWXYZ");
 
-    print("1234567890", 10, 40);
-    printi(12345, 10, 50);
-    printi(67890, 35, 50);
+    print("1234567890");
+    printi(12345);
+    printi(67890);
 
     struct Vector *v = vec_create(sizeof(struct Message), 3);
 
@@ -41,6 +41,6 @@ void main()
 
     for (char i = 0; i < v->length; i++)
     {
-        print(((struct Message *)vec_get(v, i))->msg, 180, 10 + 10 * i);
+        print(((struct Message *)vec_get(v, i))->msg);
     }
 }
