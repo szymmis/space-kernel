@@ -6,7 +6,9 @@
 #define ARROW_LEFT 0x4B
 #define ARROW_RIGHT 0x4D
 
-void handle_keyboard_input(int scancode);
+void init_keyboard();
 
-void on_key_down(int keycode);
-void on_key_up(int keycode);
+void on_key_down(void (*f)(int));
+void on_key_up(void (*f)(int));
+
+void handle_keyboard_input(int scancode);
