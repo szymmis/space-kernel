@@ -5,16 +5,7 @@ int off_x, off_y;
 
 void print(char *str)
 {
-    char index = 0;
-    int offset = 0;
-    while (str[index] != '\0')
-    {
-        char c = str[index];
-        draw_char(c, offset, off_y);
-        offset += glyph_width(c);
-        index++;
-    }
-
+    draw_text(str, 0, off_y);
     off_y += 10;
 }
 

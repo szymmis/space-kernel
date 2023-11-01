@@ -1,4 +1,5 @@
 #include "draw.h"
+#include "print.h"
 
 void draw_rect(int x, int y, int w, int h)
 {
@@ -19,6 +20,19 @@ void draw_img(char *img, int x, int y, int w, int h)
         {
             VGA_BUFFER[(SCREEN_WIDTH * ((i / w) + y)) + ((i % w) + x)] = 0x0F;
         }
+    }
+}
+
+void draw_text(char *str, int x, int y)
+{
+    char index = 0;
+    int offset = 0;
+    while (str[index] != '\0')
+    {
+        char c = str[index];
+        draw_char(c, offset + x, y);
+        offset += glyph_width(c);
+        index++;
     }
 }
 

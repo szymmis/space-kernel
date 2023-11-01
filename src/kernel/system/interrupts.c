@@ -1,7 +1,9 @@
 #include "../display/print.h"
 #include "../display/draw.h"
+#include "../std/vector.h"
 
 #include "keyboard.h"
+#include "timer.h"
 #include "io.c"
 
 void keyboard_int_handler()
@@ -13,15 +15,18 @@ void keyboard_int_handler()
     // first contains E0 byte, the second one contains the scancode.
     // For information about scan codes see:
     // https://wiki.osdev.org/PS/2_Keyboard#Scan_Code_Set_1
-    if(scan_code == 0xE0) {
+    if (scan_code == 0xE0)
+    {
         handle_keyboard_input(inb(0x60));
     }
-    else {
+    else
+    {
         handle_keyboard_input(scan_code);
     }
 }
 
-void timer_int_handler() {}
 
-
-
+void timer_int_handler()
+{
+    handle_timer_interrupt();
+}
