@@ -20,7 +20,8 @@ void main()
     printi(12345);
     printi(67890);
 
-    struct Vector *v = vec_create(sizeof(struct Message), 3);
+    struct Vector *v = vec_create(sizeof(struct Message*), 2);
+    struct Vector *v2 = vec_create(sizeof(struct Message*), 2);
 
     struct Message *m1 = malloc(sizeof(struct Message));
     m1->msg = "Message 1";
@@ -32,15 +33,26 @@ void main()
     vec_push(v, m1);
     vec_push(v, m2);
     vec_push(v, m3);
+
+    vec_push(v2, m3);
+    vec_push(v2, m3);
+    vec_push(v2, m3);
+
     vec_push(v, m1);
     vec_push(v, m2);
     vec_push(v, m3);
 
-    vec_remove(v, 4);
-    vec_remove(v, 4);
+    vec_remove(v, 0);
 
     for (char i = 0; i < v->length; i++)
     {
         print(((struct Message *)vec_get(v, i))->msg);
+    }
+
+    print("");
+
+    for (char i = 0; i < v2->length; i++)
+    {
+        print(((struct Message *)vec_get(v2, i))->msg);
     }
 }

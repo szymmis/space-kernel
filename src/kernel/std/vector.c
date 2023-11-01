@@ -5,35 +5,38 @@
 struct Vector
 {
     size_t length;
-    void **__elements;
     size_t __element_size;
     size_t __capacity;
+    void **__elements;
 };
 
 struct Vector *vec_create(size_t element_size, size_t capacity)
 {
     struct Vector *v = (struct Vector *)malloc(sizeof(struct Vector *));
     v->length = 0;
+    v->__elements = (void **)malloc(element_size * capacity);
     v->__element_size = element_size;
-    vec_expand(v, capacity);
+    v->__capacity = capacity;
     return v;
 }
 
 void vec_expand(struct Vector *v, size_t capacity)
 {
     void **old_ptr = v->__elements;
-    void **ptr = malloc((v->__capacity + capacity) * v->__element_size);
-    v->__capacity = v->__capacity + capacity;
+    void **ptr = (void **)malloc((v->__capacity + capacity) * v->__element_size);
 
     for (char i = 0; i < v->length; i++)
     {
-        ptr[i * v->__element_size] = old_ptr[i * v->__element_size];
+        ptr[i] = old_ptr[i];
     }
+
+    v->__elements = ptr;
+    v->__capacity = v->__capacity + capacity;
 }
 
 void *vec_get(struct Vector *v, size_t index)
 {
-    return v->__elements[index * v->__element_size];
+    return v->__elements[index];
 }
 
 void vec_push(struct Vector *v, void *element)
@@ -43,7 +46,7 @@ void vec_push(struct Vector *v, void *element)
         vec_expand(v, 5);
     }
 
-    v->__elements[v->__element_size * v->length] = element;
+    v->__elements[v->length] = element;
     v->length = v->length + 1;
 }
 
@@ -56,7 +59,7 @@ void vec_remove(struct Vector *v, size_t index)
 
     for (char i = index; i < v->length - 1; i++)
     {
-        v->__elements[v->__element_size * i] = v->__elements[v->__element_size * (i + 1)];
+        v->__elements[i] = v->__elements[(i + 1)];
     }
 
     v->length = v->length - 1;
