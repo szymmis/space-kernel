@@ -1,6 +1,7 @@
-#include "draw.h"
+#include "../display/draw.h"
+#include "../display/print.h"
+
 #include "keyboard.h"
-#include "print.h"
 
 void handle_keyboard_input(int scancode)
 {

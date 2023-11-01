@@ -1,9 +1,9 @@
-#include "draw.c"
-#include "interrupts.c"
-#include "keyboard.c"
-#include "memory.c"
-#include "print.c"
-#include "vector.c"
+#include "display/draw.c"
+#include "display/print.c"
+#include "std/memory.c"
+#include "std/vector.c"
+#include "system/interrupts.c"
+#include "system/keyboard.c"
 
 struct Message
 {
