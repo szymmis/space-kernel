@@ -17,10 +17,10 @@ struct Projectile
 
 struct Player* init_player()
 {
-    struct Player* player = malloc(sizeof(struct Player*));
+    struct Player* player = malloc(sizeof(struct Player));
     player->x = 150;
     player->y = 180;
-    player->projectile = malloc(sizeof(struct Projectile*));
+    player->projectile = malloc(sizeof(struct Projectile));
 
     return player;
 }

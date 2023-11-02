@@ -11,7 +11,7 @@ struct Invader
 
 
 struct Invader* create_invader(int x, int y, char type) {
-    struct Invader* invader = malloc(sizeof(struct Invader*));
+    struct Invader* invader = malloc(sizeof(struct Invader));
     invader->x = x;
     invader->y = y;
     invader->dead = 0;
