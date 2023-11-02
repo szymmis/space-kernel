@@ -10,12 +10,12 @@ struct Vector
     void **__elements;
 };
 
-struct Vector *vec_create(size_t element_size, size_t capacity)
+struct Vector *vec_create(size_t capacity)
 {
-    struct Vector *v = (struct Vector *)malloc(sizeof(struct Vector *));
+    struct Vector *v = (struct Vector *)malloc(sizeof(struct Vector));
     v->length = 0;
-    v->__elements = (void **)malloc(element_size * capacity);
-    v->__element_size = element_size;
+    v->__element_size = sizeof(void *);
+    v->__elements = (void **)malloc(v->__element_size * capacity);
     v->__capacity = capacity;
     return v;
 }

@@ -9,8 +9,8 @@ struct Vector *key_up_listeners;
 
 void init_keyboard()
 {
-    key_down_listeners = vec_create(sizeof(void (*)(int)), 5);
-    key_up_listeners = vec_create(sizeof(void (*)(int)), 5);
+    key_down_listeners = vec_create(5);
+    key_up_listeners = vec_create(5);
 }
 
 void on_key_down(void (*f)(int))

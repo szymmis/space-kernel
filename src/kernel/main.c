@@ -115,7 +115,7 @@ void main()
     on_key_up(&key_up);
 
     player = init_player();
-    invaders = vec_create(sizeof(struct Invader *), 10);
+    invaders = vec_create(10);
 
     movement_count = 4;
     movement_direction = 1;

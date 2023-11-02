@@ -6,7 +6,7 @@ struct Vector *timer_handlers;
 
 void init_timer()
 {
-    timer_handlers = vec_create(sizeof(void (*)()), 5);
+    timer_handlers = vec_create(5);
 }
 
 void on_timer_int(void (*f)(int))
