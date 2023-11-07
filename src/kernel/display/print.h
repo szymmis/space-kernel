@@ -7,3 +7,4 @@ void cls();
 
 void draw_char(char c, int x, int y);
 int glyph_width(char c);
+int measure_str(char* str);

@@ -431,3 +431,15 @@ int glyph_width(char c) {
 
     return GLYPH_WIDTH;
 }
+
+int measure_str(char* str) {
+    int width = 0;
+
+    int i = 0;
+    while(str[i] != '\0') {
+        width += glyph_width(str[i]);
+        i++;
+    }
+
+    return width;
+}

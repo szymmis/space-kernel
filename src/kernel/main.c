@@ -50,9 +50,10 @@ void tick()
     if (started == 0)
     {
         clear_screen();
-        if ((tick_count % 40) > 10)
+        if ((tick_count % 40) < 25)
         {
-            draw_text("press enter to start", SCREEN_WIDTH / 2 - (20 / 2 * GLYPH_WIDTH), SCREEN_HEIGHT / 2 - GLYPH_HEIGHT);
+            char* str = "press enter to start";
+            draw_text(str, SCREEN_WIDTH / 2 - (measure_str(str)/2), SCREEN_HEIGHT / 2 - GLYPH_HEIGHT);
         }
         return;
     }
