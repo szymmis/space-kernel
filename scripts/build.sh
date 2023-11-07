@@ -28,4 +28,4 @@ ld -m elf_i386 -no-PIE -Ttext 0x1000 $OUT/kernel_entry.o $OUT/kernel.o -o $OUT/k
 # seek=1: Skip the first 512 bytes of the output file
 dd if=/dev/zero of=$OUT/disk.img bs=512 count=2880
 dd if=$OUT/bootloader.bin of=$OUT/disk.img bs=512 count=1 conv=notrunc
-dd if=$OUT/kernel.bin of=$OUT/disk.img bs=512 seek=1 conv=notrunc
+dd if=$OUT/kernel.bin of=$OUT/disk.img bs=512 count=2879 seek=1 conv=notrunc
