@@ -10,7 +10,7 @@ mkdir -p $OUT
 nasm $SRC/bootloader/main.asm -I $SRC/bootloader -o $OUT/bootloader.bin
 
 # Compile kernel entry assebly code to 32bit ELF format
-nasm $SRC/kernel_entry/main.asm -I $SRC/kernel_entry -f elf -o $OUT/kernel_entry.o
+nasm $SRC/kernel/main.asm -I $SRC/kernel -f elf -o $OUT/kernel_entry.o
 # Compile kernel C code to 32bit ELF format
 # -ffreestanding: Do not use the C standard libraries
 # -m32: Generate 32-bit code
