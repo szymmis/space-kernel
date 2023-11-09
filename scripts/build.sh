@@ -1,26 +1,27 @@
 #!/usr/bin/env sh
 
 SRC=src
-OUT=dist
+OUT=target
 
 # Create build output directory
 mkdir -p $OUT
 
 # Compile bootloader to 16bit binary format
-nasm $SRC/bootloader/main.asm -I $SRC/bootloader -o $OUT/bootloader.bin
+nasm bootloader/main.asm -I bootloader -o $OUT/bootloader.bin
 
 # Compile kernel entry assebly code to 32bit ELF format
-nasm $SRC/kernel/main.asm -I $SRC/kernel -f elf -o $OUT/kernel_entry.o
-# Compile kernel C code to 32bit ELF format
-# -ffreestanding: Do not use the C standard libraries
-# -m32: Generate 32-bit code
-# -fno-PIC: Disable position independent code
-gcc -ffreestanding -m32 -fno-PIC -c $SRC/kernel/main.c -o $OUT/kernel.o
-# Link kernel entry and kernel C code to 32bit binary format
-# -Ttext 0x1000: Set the entry point of the kernel to 0x1000
+nasm $SRC/main.asm -I $SRC -f elf -o $OUT/kernel_entry.o
+
+# Compile Rust code using target defined by `x86_32-unknown-none.json` file
+cargo build --release
+
+# Link kernel entry asm code and kernel Rust code to 32bit binary format
+# **-Ttext 0x1000**: Set the entry point of the kernel to 0x1000
 # That's the address where the bootloader loads the kernel code using BIOS interrupt 0x02 (Read Sector)
-# -no-PIE: Disable position independent executables
-ld -m elf_i386 -no-PIE -Ttext 0x1000 $OUT/kernel_entry.o $OUT/kernel.o -o $OUT/kernel.bin --oformat binary
+# **no-PIE**: Disable position independend code generation
+# https://en.wikipedia.org/wiki/Position-independent_code
+# All addresses will be adjusted to explicit 0x1000 offset because that's where the code is loaded
+ld -m elf_i386 -no-PIE -Ttext 0x1000 $OUT/kernel_entry.o $OUT/x86_32-unknown-none/release/libspace_kernel.a -o $OUT/kernel.bin --oformat binary
 
 # Create  empty disk image and copy bootloader and kernel code to it
 # 2880x512B = 1.44MB (floppy disk size)

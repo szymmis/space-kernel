@@ -6,8 +6,8 @@
 set_graphics_mode:
 	mov ah, 0x00 ; Function code of 'Set video mode' BIOS interrupt
 				 ; For more information see https://en.wikipedia.org/wiki/INT_10H
-	; mov al, 0x03 ; Parameter defining what mode to set - 0x03 = Text mode
-	mov al, 0x13 ; 0x13 - VGA 320x200 256 colors mode
+	mov al, 0x03 ; Parameter defining what mode to set - 0x03 = Text mode
+	; mov al, 0x13 ; 0x13 - VGA 320x200 256 colors mode
 	int 0x10 ; BIOS interrupt
 
 switch_to_pm:
