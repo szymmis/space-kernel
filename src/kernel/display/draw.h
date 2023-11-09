@@ -4,4 +4,5 @@
 
 void draw_rect(int x, int y, int w, int h);
 void draw_img(char *img, int x, int y, int w, int h);
+void draw_text(char *str, int x, int y);
 void clear_screen();

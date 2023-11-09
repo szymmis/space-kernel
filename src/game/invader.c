@@ -1,5 +1,5 @@
-#include "../std/memory.h"
-#include "../display/draw.h"
+#include "../kernel/std/memory.h"
+#include "../kernel/display/draw.h"
 
 #include "invader.h"
 

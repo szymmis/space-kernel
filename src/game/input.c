@@ -1,4 +1,4 @@
-#include "../system/keyboard.h"
+#include "../kernel/system/keyboard.h"
 
 #include "game.h"
 #include "player.h"

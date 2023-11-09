@@ -1,11 +1,14 @@
-#include "../system/keyboard.h"
-#include "../system/timer.h"
-#include "../std/vector.h"
+#include "../kernel/system/keyboard.h"
+#include "../kernel/system/timer.h"
+#include "../kernel/std/vector.h"
+#include "../kernel/display/draw.h"
+#include "../kernel/display/print.h"
+
+#include "input.c"
+#include "invader.c"
+#include "player.c"
 
 #include "game.h"
-#include "invader.h"
-#include "input.h"
-#include "player.h"
 
 struct Player *player;
 struct Vector *invaders;
