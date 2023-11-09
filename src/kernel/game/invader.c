@@ -1,14 +1,7 @@
 #include "../std/memory.h"
 #include "../display/draw.h"
 
-struct Invader
-{
-    int x;
-    int y;
-    char dead;
-    char type;
-};
-
+#include "invader.h"
 
 struct Invader* create_invader(int x, int y, char type) {
     struct Invader* invader = malloc(sizeof(struct Invader));
@@ -22,7 +15,9 @@ struct Invader* create_invader(int x, int y, char type) {
 
 void draw_invader(struct Invader* i)
 {
-    if(i->type == 0)
+    if (i->dead == 1) return;
+
+    if(i->type == INVADER)
     {
         char sprite[] = { 
             0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0,
@@ -37,7 +32,7 @@ void draw_invader(struct Invader* i)
         
         draw_img(sprite, i->x, i->y, 11, 8);
     }
-    else if(i->type == 1)
+    else if(i->type == SQUID)
     {
         char sprite[] = { 
             0, 0, 0, 0, 1, 1, 0, 0, 0, 0,
@@ -52,7 +47,7 @@ void draw_invader(struct Invader* i)
         
         draw_img(sprite, i->x, i->y, 10, 8);
     }
-    else if(i->type == 2)
+    else if(i->type == GOLIATH)
     {
         char sprite[] = { 
             0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0,

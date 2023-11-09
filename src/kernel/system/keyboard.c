@@ -13,12 +13,12 @@ void init_keyboard()
     key_up_listeners = vec_create(5);
 }
 
-void on_key_down(void (*f)(int))
+void add_key_down_listener(void (*f)(int))
 {
     vec_push(key_down_listeners, f);
 }
 
-void on_key_up(void (*f)(int))
+void add_key_up_listener(void (*f)(int))
 {
     vec_push(key_up_listeners, f);
 }

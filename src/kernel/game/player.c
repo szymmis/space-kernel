@@ -1,21 +1,9 @@
 #include "../std/memory.h"
 #include "../display/draw.h"
 
-struct Player 
-{
-    int x;
-    int y;
-    struct Projectile* projectile;
-};
+#include "player.h"
 
-struct Projectile 
-{
-    int x;
-    int y;
-};
-
-
-struct Player* init_player()
+struct Player* create_player()
 {
     struct Player* player = malloc(sizeof(struct Player));
     player->x = 150;

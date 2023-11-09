@@ -2,14 +2,6 @@
 #include "memory.h"
 #include "vector.h"
 
-struct Vector
-{
-    size_t length;
-    size_t __element_size;
-    size_t __capacity;
-    void **__elements;
-};
-
 struct Vector *vec_create(size_t capacity)
 {
     struct Vector *v = (struct Vector *)malloc(sizeof(struct Vector));

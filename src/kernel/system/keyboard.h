@@ -8,7 +8,7 @@
 
 void init_keyboard();
 
-void on_key_down(void (*f)(int));
-void on_key_up(void (*f)(int));
+void add_key_down_listener(void (*f)(int));
+void add_key_up_listener(void (*f)(int));
 
 void handle_keyboard_input(int scancode);

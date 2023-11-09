@@ -1,3 +1,3 @@
 void init_timer();
-void on_timer_int(void (*f)(int));
+void add_timer_int_listener(void (*f)(int));
 void handle_timer_interrupt();
