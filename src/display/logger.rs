@@ -12,7 +12,7 @@ pub fn print(text: &str) {
     }
 }
 
-pub fn printi(n: usize) {
+pub fn printi(n: i32) {
     unsafe {
         let mut str = ['\0'; 12];
 

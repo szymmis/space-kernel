@@ -1,4 +1,4 @@
-use crate::mem::alloc::malloc;
+use crate::{display::logger, mem::alloc::malloc};
 
 pub struct Vec<T>
 where
@@ -27,10 +27,6 @@ where
     }
 
     pub fn get(&mut self, i: usize) -> &mut T {
-        if i >= self.length {
-            panic!();
-        }
-
         unsafe { &mut *self.data.add(i) }
     }
 

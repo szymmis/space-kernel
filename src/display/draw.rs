@@ -3,11 +3,11 @@ use super::glyphs;
 static SCREEN_WIDTH: i32 = 320;
 static SCREEN_HEIGHT: i32 = 200;
 
-pub fn draw_rect(x: i32, y: i32, width: i32, height: i32) {
+pub fn draw_rect(x: i32, y: i32, width: i32, height: i32, color: u8) {
     unsafe {
         for i in 0..height {
             for j in 0..width {
-                *((0xA0000 + (SCREEN_WIDTH * (y + i) + (x + j))) as *mut u8) = 0x0F;
+                *((0xA0000 + (SCREEN_WIDTH * (y + i) + (x + j))) as *mut u8) = color;
             }
         }
     }
