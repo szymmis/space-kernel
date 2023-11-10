@@ -1,4 +1,4 @@
-use crate::{display::logger, mem::alloc::malloc};
+use crate::kernel::mem::alloc::malloc;
 
 pub struct Vec<T>
 where

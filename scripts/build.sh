@@ -7,10 +7,10 @@ OUT=target
 mkdir -p $OUT
 
 # Compile bootloader to 16bit binary format
-nasm bootloader/main.asm -I bootloader -o $OUT/bootloader.bin
+nasm $SRC/bootloader/main.asm -I $SRC/bootloader -o $OUT/bootloader.bin
 
 # Compile kernel entry assebly code to 32bit ELF format
-nasm $SRC/main.asm -I $SRC -f elf -o $OUT/kernel_entry.o
+nasm $SRC/kernel/main.asm -I $SRC/kernel -f elf -o $OUT/kernel_entry.o
 
 # Compile Rust code using target defined by `x86_32-unknown-none.json` file
 cargo build --release

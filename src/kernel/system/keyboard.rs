@@ -1,6 +1,6 @@
 use core::arch::asm;
 
-use crate::mem::vec::Vec;
+use crate::kernel::mem::vec::Vec;
 
 static mut KEY_DOWN_HANDLERS: Option<Vec<fn(Key)>> = None;
 static mut KEY_UP_HANDLERS: Option<Vec<fn(Key)>> = None;

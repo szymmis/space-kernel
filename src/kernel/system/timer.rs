@@ -1,4 +1,4 @@
-use crate::mem::vec::Vec;
+use crate::kernel::mem::vec::Vec;
 
 static mut TIMER_HANDLERS: Option<Vec<fn()>> = None;
 
