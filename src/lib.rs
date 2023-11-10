@@ -9,7 +9,10 @@ mod system;
 
 use display::{draw::draw_rect, logger};
 use mem::vec::Vec;
-use system::keyboard::{Key, Keyboard};
+use system::{
+    keyboard::{Key, Keyboard},
+    timer::Timer,
+};
 
 #[derive(Clone, Copy)]
 struct Number {
@@ -27,6 +30,7 @@ static mut MY_BOX: Option<Number> = Option::None;
 #[no_mangle]
 pub extern "C" fn main() {
     Keyboard::init();
+    Timer::init();
 
     logger::cls();
     logger::print("0123456789ABCDEFGHIJKLMNOPRSTUWXYZ");
