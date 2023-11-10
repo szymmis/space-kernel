@@ -1,18 +1,19 @@
 #![no_std]
 #![no_main]
 
-use core::panic::PanicInfo;
+mod display;
+mod system;
 
-static mut VGA_BUFFER: *mut u8 = 0xb8000 as *mut u8;
+use core::panic::PanicInfo;
+use display::{draw, logger};
 
 #[no_mangle]
 pub extern "C" fn main() {
-    unsafe {
-        for (i, char) in "Hello from Rust!".chars().enumerate() {
-            *VGA_BUFFER.offset(i as isize * 2) = char as u8;
-            *VGA_BUFFER.offset(i as isize * 2 + 1) = 0x07;
-        }
-    }
+    logger::cls();
+    logger::print("0123456789ABCDEFGHIJKLMNOPRSTUWXYZ");
+    logger::print("Hello world");
+
+    draw::draw_rect(270, 10, 10, 32);
 }
 
 #[panic_handler]

@@ -52,14 +52,14 @@ idtr_descriptor:
     dd idt_start ; Address of the IDT
 
 keyboard_int:
-    call keyboard_int_handler
+    call kb_intr_handler
     mov al, 0x20 ; 0x20 - End of interrupt command
     out 0x20, al ; needs to be send to 0x20 (PIC master command port)
                  ; otherwise the PIC will not send any more interrupts of this type
     iret         ; Return from interrupt
 
 timer_int:
-    call timer_int_handler
+    call timer_intr_handler
     mov al, 0x20
     out 0x20, al
     iret
