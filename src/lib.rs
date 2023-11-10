@@ -7,7 +7,7 @@ mod display;
 mod mem;
 mod system;
 
-use display::{draw, logger};
+use display::logger;
 use mem::vec::Vec;
 
 #[derive(Clone, Copy)]
@@ -46,33 +46,21 @@ pub extern "C" fn main() {
     v.remove(3);
     v.remove(3);
 
-    let mut offset = 0;
     for i in 0..v.len() {
         let val = *v.get(i);
-        print_a(val, 20, 20 + offset);
-        offset += val + 10;
+        logger::printi(val);
     }
 
-    offset = 0;
     for i in 0..v2.len() {
-        let val = v2.get(i).val;
-        print_a(val, 80, 20 + offset);
-        offset += val + 10;
+        logger::printi(v2.get(i).val as usize);
     }
 
     v2.get(0).set(10);
     v2.get(1).set(24);
 
-    offset = 0;
     for i in 0..v2.len() {
-        let val = v2.get(i).val;
-        print_a(val, 220, 20 + offset);
-        offset += val + 10;
+        logger::printi(v2.get(i).val as usize);
     }
-}
-
-fn print_a(val: i32, x: i32, y: i32) {
-    draw::draw_rect(x, y, val, val);
 }
 
 #[panic_handler]

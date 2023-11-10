@@ -25,13 +25,19 @@ pub fn draw_bitmap(img: &[i32], x: i32, y: i32, width: i32, height: i32) {
     }
 }
 
+pub fn draw_char(c: char, x: i32, y: i32) {
+    if c != ' ' {
+        let glyph = glyphs::get_glyph(c);
+        draw_bitmap(glyph, x, y, 5, 5);
+    }
+}
+
 pub fn draw_text(text: &str, x: i32, y: i32) {
     let mut offset = 0;
 
     for c in text.chars() {
         if c != ' ' {
-            let glyph = glyphs::get_glyph(c);
-            draw_bitmap(glyph, x + offset, y, 5, 5);
+            draw_char(c, x + offset, y)
         }
         offset += glyphs::get_glyph_width(c);
     }

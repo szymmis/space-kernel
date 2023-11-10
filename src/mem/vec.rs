@@ -54,6 +54,7 @@ where
             for i in i..self.length {
                 *self.data.add(i) = *self.data.add(i + 1);
             }
+            self.length -= 1;
         }
     }
 
