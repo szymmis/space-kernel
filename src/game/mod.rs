@@ -16,7 +16,7 @@ pub fn init_game() {
         unsafe {
             if let Some(val) = &mut MY_BOX {
                 val.set(213);
-                logger::printi(val.val);
+                logger::print_num(val.val);
             }
         }
     }
@@ -26,7 +26,7 @@ pub fn init_game() {
         unsafe {
             if let Some(val) = &mut MY_BOX {
                 val.set(23);
-                logger::printi(val.val);
+                logger::print_num(val.val);
             }
         }
     }
@@ -42,7 +42,7 @@ pub fn init_game() {
             match val {
                 Key::Enter => logger::print("Enter"),
                 Key::Spacebar => logger::print("Spacebar"),
-                Key::Unkown(val) => logger::printi(val as i32),
+                Key::Unkown(val) => logger::print_num(val as i32),
                 _ => logger::print("Key down"),
             }
         });
@@ -53,7 +53,7 @@ pub fn init_game() {
             match val {
                 Key::Enter => logger::print("Enter up"),
                 Key::Spacebar => logger::print("Spacebar up"),
-                Key::Unkown(val) => logger::printi(val as i32),
+                Key::Unkown(val) => logger::print_num(val as i32),
                 _ => logger::print("Key up"),
             }
         });
@@ -80,18 +80,18 @@ pub fn init_game() {
 
     for i in 0..v.len() {
         let val = *v.get(i);
-        logger::printi(val);
+        logger::print_num(val);
     }
 
     for i in 0..v2.len() {
-        logger::printi(v2.get(i).val);
+        logger::print_num(v2.get(i).val);
     }
 
     v2.get(0).set(10);
     v2.get(1).set(24);
 
     for i in 0..v2.len() {
-        logger::printi(v2.get(i).val);
+        logger::print_num(v2.get(i).val);
     }
 }
 
