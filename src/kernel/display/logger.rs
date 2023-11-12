@@ -1,6 +1,6 @@
 use core::str;
 
-use super::draw;
+use super::{draw, glyphs::get_glyph_width};
 
 static mut OFFSET_X: i32 = 0;
 static mut OFFSET_Y: i32 = 0;
@@ -46,4 +46,12 @@ pub fn cls() {
         OFFSET_X = 0;
         OFFSET_Y = 0;
     }
+}
+
+pub fn measure_str(str: &str) -> i32 {
+    let mut width = 0;
+    for c in str.chars() {
+        width += get_glyph_width(c);
+    }
+    width
 }
