@@ -1,6 +1,6 @@
-mod game;
-mod game_over;
-mod menu;
+mod game_over_screen;
+mod game_screen;
+mod menu_screen;
 
 use crate::kernel::system::Key;
 
@@ -17,6 +17,6 @@ pub trait Screen {
     fn on_key_up(key: Key);
 }
 
-pub use self::game::GameScreen;
-pub use self::game_over::GameOverScreen;
-pub use self::menu::MenuScreen;
+pub use self::game_over_screen::GameOverScreen;
+pub use self::game_screen::GameScreen;
+pub use self::menu_screen::MenuScreen;
