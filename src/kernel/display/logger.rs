@@ -19,10 +19,15 @@ pub fn print_num(n: i32) {
 
     let mut value = n;
     let mut length: usize = 0;
-    while value > 0 {
-        str[length] = (48 + value % 10) as u8;
-        value /= 10;
-        length += 1;
+    if value == 0 {
+        str[0] = b'0';
+        length = 1;
+    } else {
+        while value > 0 {
+            str[length] = (48 + value % 10) as u8;
+            value /= 10;
+            length += 1;
+        }
     }
 
     let mut reverse_str = [b'\0'; 12];

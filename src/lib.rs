@@ -6,7 +6,7 @@ mod kernel;
 
 use core::panic::PanicInfo;
 
-use game::init_game;
+use game::Game;
 use kernel::system::{Keyboard, Timer};
 
 #[no_mangle]
@@ -14,7 +14,7 @@ pub extern "C" fn main() {
     Keyboard::init();
     Timer::init();
 
-    init_game();
+    Game::init();
 }
 
 #[panic_handler]
