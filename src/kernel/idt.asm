@@ -40,6 +40,19 @@ init_idt:
     idt_entry 0x20, timer_int ; Handler for IRQ 0 (timer)
     idt_entry 0x21, keyboard_int ; Handler for IRQ 1 (keyboard)
 
+    ; Set up PIT (Programmable Interval Timer)
+    ; Configuration byte based on https://wiki.osdev.org/Programmable_Interval_Timer#I.2FO_Ports
+    mov eax, 0b00110111 
+    out 0x43, eax ; 0x43 is Mode/Command register port
+    ; PIT by default operates in 1.193182 MHz frequency mode
+    ; it can be configured using value called divisor (16bit)
+    ; Using divisor 2 makes it raise IRQ0 twice less frequent
+    ; If we want to have 30fps we need to divide 1.19Mhz by 39772 (0x9B5D)
+    mov al, 0x5D
+    out 0x40, al ; Send lower byte first 0x__5D
+    mov al, 0x9B
+    out 0x40, al ; Then send higher byte 0x9B__
+
     sti ; Enable interrupts that were disabled during protected mode switch
 
     ret ; Return to the caller (kernel_entry.asm)
