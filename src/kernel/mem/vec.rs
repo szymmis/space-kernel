@@ -1,22 +1,20 @@
+use core::mem::size_of;
+
 use crate::kernel::mem::alloc::malloc;
 
-pub struct Vec<T>
-where
-    T: Copy,
-{
+use super::alloc::memcpy;
+
+pub struct Vec<T> {
     data: *mut T,
     length: usize,
     capacity: usize,
     element_size: usize,
 }
 
-impl<T> Vec<T>
-where
-    T: Copy,
-{
+impl<T> Vec<T> {
     pub fn new(capacity: usize) -> Self {
         unsafe {
-            let element_size = core::mem::size_of::<T>();
+            let element_size = size_of::<T>();
             Self {
                 data: malloc(element_size * capacity),
                 length: 0,
@@ -47,8 +45,8 @@ where
         }
 
         unsafe {
-            for i in i..self.length {
-                *self.data.add(i) = *self.data.add(i + 1);
+            for i in i..(self.length - 1) {
+                memcpy(self.data.add(i + 1), self.data.add(i), self.element_size)
             }
             self.length -= 1;
         }
@@ -64,7 +62,7 @@ where
             let ptr: *mut T = malloc(self.element_size * (self.capacity + 5));
 
             for i in 0..self.length {
-                *ptr.add(i) = *old_ptr.add(i);
+                memcpy(old_ptr.add(i + 1), ptr.add(i), self.element_size)
             }
 
             self.data = ptr;

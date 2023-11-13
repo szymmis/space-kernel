@@ -6,3 +6,11 @@ pub unsafe fn malloc<T>(size: usize) -> *mut T {
     HEAP_OFFSET += size;
     ptr
 }
+
+pub unsafe fn memcpy<T>(from: *mut T, to: *mut T, size: usize) {
+    let mut i = 0;
+    while i < size {
+        *(to as *mut u8).add(i) = *(from as *mut u8).add(i);
+        i += 1;
+    }
+}
