@@ -19,11 +19,7 @@ impl Screen for GameOverScreen {
 
     fn on_key_down(key: Key) {
         if let Key::Enter = key {
-            unsafe {
-                if let Some(game) = &mut GAME {
-                    game.screen = ActiveScreen::Game
-                }
-            }
+            unsafe { GAME.screen = ActiveScreen::Game }
         }
     }
 

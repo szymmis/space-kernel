@@ -37,16 +37,14 @@ impl Invader {
 
     pub fn update(&mut self) {
         unsafe {
-            if let Some(game) = &mut GAME {
-                if game.ticks % INTERVAL == 0 {
-                    self.x += match game.movement_direction {
-                        Direction::Left => -10,
-                        Direction::Right => 10,
-                    };
+            if GAME.ticks % INTERVAL == 0 {
+                self.x += match GAME.movement_direction {
+                    Direction::Left => -10,
+                    Direction::Right => 10,
+                };
 
-                    if game.movement_count >= 7 {
-                        self.y += 15;
-                    }
+                if GAME.movement_count >= 7 {
+                    self.y += 15;
                 }
             }
         }

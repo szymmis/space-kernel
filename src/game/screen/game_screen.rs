@@ -9,43 +9,39 @@ pub struct GameScreen;
 impl Screen for GameScreen {
     fn draw() {
         unsafe {
-            if let Some(game) = &mut GAME {
-                game.player.draw();
+            GAME.player.draw();
 
-                for i in 0..game.invaders.len() {
-                    let invader = game.invaders.get(i);
-                    invader.draw();
-                }
+            for i in 0..GAME.invaders.len() {
+                let invader = GAME.invaders.get(i);
+                invader.draw();
             }
         }
     }
 
     fn update() {
         unsafe {
-            if let Some(game) = &mut GAME {
-                game.player.update();
+            GAME.player.update();
 
-                for i in 0..game.invaders.len() {
-                    let invader = game.invaders.get(i);
+            for i in 0..GAME.invaders.len() {
+                let invader = GAME.invaders.get(i);
 
-                    if invader.dead {
-                        continue;
-                    }
-
-                    game.player.check_collision(invader);
-
-                    invader.update();
+                if invader.dead {
+                    continue;
                 }
 
-                if game.ticks % INTERVAL == 0 {
-                    game.movement_count += 1;
-                    if game.movement_count >= 8 {
-                        game.movement_count = 0;
-                        game.movement_direction = match game.movement_direction {
-                            Direction::Left => Direction::Right,
-                            Direction::Right => Direction::Left,
-                        };
-                    }
+                GAME.player.check_collision(invader);
+
+                invader.update();
+            }
+
+            if GAME.ticks % INTERVAL == 0 {
+                GAME.movement_count += 1;
+                if GAME.movement_count >= 8 {
+                    GAME.movement_count = 0;
+                    GAME.movement_direction = match GAME.movement_direction {
+                        Direction::Left => Direction::Right,
+                        Direction::Right => Direction::Left,
+                    };
                 }
             }
         }
@@ -53,22 +49,18 @@ impl Screen for GameScreen {
 
     fn on_key_down(key: Key) {
         unsafe {
-            if let Some(game) = &mut GAME {
-                match key {
-                    Key::ArrowLeft => game.player.do_move(Direction::Left),
-                    Key::ArrowRigth => game.player.do_move(Direction::Right),
-                    _ => (),
-                }
+            match key {
+                Key::ArrowLeft => GAME.player.do_move(Direction::Left),
+                Key::ArrowRigth => GAME.player.do_move(Direction::Right),
+                _ => (),
             }
         }
     }
 
     fn on_key_up(key: Key) {
         unsafe {
-            if let Some(game) = &mut GAME {
-                if let Key::Spacebar = key {
-                    game.player.shoot();
-                }
+            if let Key::Spacebar = key {
+                GAME.player.shoot();
             }
         }
     }

@@ -4,6 +4,10 @@ mod player;
 mod projectile;
 mod screen;
 
+use self::{
+    invader::{Invader, InvaderType},
+    player::Direction,
+};
 use crate::{
     game::{
         player::Player,
@@ -11,17 +15,12 @@ use crate::{
     },
     kernel::{
         display::logger::cls,
-        mem::vec::Vec,
+        mem::{boxed::LazyBox, vec::Vec},
         system::{Key, Keyboard, Timer},
     },
 };
 
-use self::{
-    invader::{Invader, InvaderType},
-    player::Direction,
-};
-
-static mut GAME: Option<Game> = None;
+static mut GAME: LazyBox<Game> = LazyBox::new(Game::new);
 static mut INTERVAL: u32 = 40;
 
 pub struct Game {
@@ -35,38 +34,23 @@ pub struct Game {
 }
 
 impl Game {
+    fn new() -> Self {
+        Game {
+            ticks: 0,
+            screen: ActiveScreen::MainMenu,
+            player: Player::new(),
+            invaders: Vec::new(5 * 11),
+            movement_count: 4,
+            movement_direction: Direction::Right,
+        }
+    }
+
     pub fn init() {
         unsafe {
-            let mut game = Game {
-                ticks: 0,
-                screen: ActiveScreen::Game,
-                player: Player::new(),
-                invaders: Vec::new(5 * 11),
-
-                movement_count: 4,
-                movement_direction: Direction::Right,
-            };
-            game.init_invaders();
-
-            GAME = Some(game);
-
-            Keyboard::add_on_key_down_listener(|key| {
-                if let Some(game) = &mut GAME {
-                    game.on_key_up(key)
-                }
-            });
-
-            Keyboard::add_on_key_up_listener(|key| {
-                if let Some(game) = &mut GAME {
-                    game.on_key_down(key)
-                }
-            });
-
-            Timer::add_timer_listener(|| {
-                if let Some(game) = &mut GAME {
-                    game.on_tick();
-                }
-            })
+            GAME.init_invaders();
+            Keyboard::add_on_key_down_listener(|key| GAME.on_key_up(key));
+            Keyboard::add_on_key_up_listener(|key| GAME.on_key_down(key));
+            Timer::add_timer_listener(|| GAME.on_tick())
         }
     }
 

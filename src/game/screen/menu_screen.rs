@@ -12,11 +12,9 @@ pub struct MenuScreen;
 impl Screen for MenuScreen {
     fn draw() {
         unsafe {
-            if let Some(game) = &mut GAME {
-                if (game.ticks % 40) < 25 {
-                    let msg = "Press enter to start";
-                    draw_text(msg, 320 / 2 - measure_str(msg) / 2, 200 / 2 - 2)
-                }
+            if (GAME.ticks % 40) < 25 {
+                let msg = "Press enter to start";
+                draw_text(msg, 320 / 2 - measure_str(msg) / 2, 200 / 2 - 2)
             }
         }
     }
@@ -25,11 +23,7 @@ impl Screen for MenuScreen {
 
     fn on_key_down(key: Key) {
         if let Key::Enter = key {
-            unsafe {
-                if let Some(game) = &mut GAME {
-                    game.screen = ActiveScreen::Game
-                }
-            }
+            unsafe { GAME.screen = ActiveScreen::Game }
         }
     }
 
