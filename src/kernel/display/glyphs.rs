@@ -1,4 +1,4 @@
-pub fn get_glyph(c: char) -> &'static [i32] {
+pub fn get_glyph(c: char) -> &'static [u8] {
     match c {
         '0' => &ZERO,
         '1' => &ONE,
@@ -48,7 +48,7 @@ pub fn get_glyph_width(c: char) -> i32 {
 }
 
 #[rustfmt::skip]
-static ZERO: [i32; 25] = [
+static ZERO: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     1,0,0,1,0,
@@ -57,7 +57,7 @@ static ZERO: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static ONE: [i32; 25] = [
+static ONE: [u8; 25] = [
     0,0,1,0,0,
     0,1,1,0,0,
     0,0,1,0,0,
@@ -66,7 +66,7 @@ static ONE: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static TWO: [i32; 25] = [
+static TWO: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     0,0,1,0,0,
@@ -75,7 +75,7 @@ static TWO: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static THREE: [i32; 25] = [
+static THREE: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     0,0,1,0,0,
@@ -84,7 +84,7 @@ static THREE: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static FOUR: [i32; 25] = [
+static FOUR: [u8; 25] = [
     1,0,0,0,0,
     1,0,1,0,0,
     1,1,1,1,0,
@@ -93,7 +93,7 @@ static FOUR: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static FIVE: [i32; 25] = [
+static FIVE: [u8; 25] = [
     1,1,1,1,0,
     1,0,0,0,0,
     1,1,1,0,0,
@@ -102,7 +102,7 @@ static FIVE: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static SIX: [i32; 25] = [
+static SIX: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,0,0,
     1,1,1,0,0,
@@ -111,7 +111,7 @@ static SIX: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static SEVEN: [i32; 25] = [
+static SEVEN: [u8; 25] = [
     1,1,1,1,0,
     0,0,0,1,0,
     0,0,1,0,0,
@@ -120,7 +120,7 @@ static SEVEN: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static EIGHT: [i32; 25] = [
+static EIGHT: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     0,1,1,0,0,
@@ -129,7 +129,7 @@ static EIGHT: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static NINE: [i32; 25] = [
+static NINE: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     0,1,1,1,0,
@@ -138,7 +138,7 @@ static NINE: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static A: [i32; 25] = [
+static A: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     1,1,1,1,0,
@@ -147,7 +147,7 @@ static A: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static B: [i32; 25] = [
+static B: [u8; 25] = [
     1,1,1,0,0,
     1,0,0,1,0,
     1,1,1,0,0,
@@ -156,7 +156,7 @@ static B: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static C: [i32; 25] = [
+static C: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     1,0,0,0,0,
@@ -165,7 +165,7 @@ static C: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static D: [i32; 25] = [
+static D: [u8; 25] = [
     1,1,1,0,0,
     1,0,0,1,0,
     1,0,0,1,0,
@@ -174,7 +174,7 @@ static D: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static E: [i32; 25] = [
+static E: [u8; 25] = [
     1,1,1,1,0,
     1,0,0,0,0,
     1,1,1,0,0,
@@ -183,7 +183,7 @@ static E: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static F: [i32; 25] = [
+static F: [u8; 25] = [
     1,1,1,1,0,
     1,0,0,0,0,
     1,1,1,0,0,
@@ -192,7 +192,7 @@ static F: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static G: [i32; 25] = [
+static G: [u8; 25] = [
     0,1,1,1,0,
     1,0,0,0,0,
     1,0,1,1,0,
@@ -201,7 +201,7 @@ static G: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static H: [i32; 25] = [
+static H: [u8; 25] = [
     1,0,0,1,0,
     1,0,0,1,0,
     1,1,1,1,0,
@@ -210,7 +210,7 @@ static H: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static I: [i32; 25] = [
+static I: [u8; 25] = [
     1,0,0,0,0,
     1,0,0,0,0,
     1,0,0,0,0,
@@ -219,7 +219,7 @@ static I: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static J: [i32; 25] = [
+static J: [u8; 25] = [
     1,1,1,1,0,
     0,0,0,1,0,
     0,0,0,1,0,
@@ -228,7 +228,7 @@ static J: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static K: [i32; 25] = [
+static K: [u8; 25] = [
     1,0,0,1,0,
     1,0,1,0,0,
     1,1,0,0,0,
@@ -237,7 +237,7 @@ static K: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static L: [i32; 25] = [
+static L: [u8; 25] = [
     1,0,0,0,0,
     1,0,0,0,0,
     1,0,0,0,0,
@@ -246,7 +246,7 @@ static L: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static M: [i32; 25] = [
+static M: [u8; 25] = [
     1,0,0,0,1,
     1,1,0,1,1,
     1,0,1,0,1,
@@ -255,7 +255,7 @@ static M: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static N: [i32; 25] = [
+static N: [u8; 25] = [
     1,0,0,1,0,
     1,1,0,1,0,
     1,0,1,1,0,
@@ -264,7 +264,7 @@ static N: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static O: [i32; 25] = [
+static O: [u8; 25] = [
     0,1,1,0,0,
     1,0,0,1,0,
     1,0,0,1,0,
@@ -273,7 +273,7 @@ static O: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static P: [i32; 25] = [
+static P: [u8; 25] = [
     1,1,1,0,0,
     1,0,0,1,0,
     1,1,1,0,0,
@@ -282,7 +282,7 @@ static P: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static R: [i32; 25] = [
+static R: [u8; 25] = [
     1,1,1,0,0,
     1,0,0,1,0,
     1,1,1,0,0,
@@ -291,7 +291,7 @@ static R: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static S: [i32; 25] = [
+static S: [u8; 25] = [
     0,1,1,1,0,
     1,0,0,0,0,
     0,1,1,0,0,
@@ -300,7 +300,7 @@ static S: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static T: [i32; 25] = [
+static T: [u8; 25] = [
     1,1,1,1,1,
     0,0,1,0,0,
     0,0,1,0,0,
@@ -309,7 +309,7 @@ static T: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static U: [i32; 25] = [
+static U: [u8; 25] = [
     1,0,0,1,0,
     1,0,0,1,0,
     1,0,0,1,0,
@@ -318,7 +318,7 @@ static U: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static W: [i32; 25] = [
+static W: [u8; 25] = [
     1,0,0,0,1,
     1,0,0,0,1,
     1,0,0,0,1,
@@ -327,7 +327,7 @@ static W: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static X: [i32; 25] = [
+static X: [u8; 25] = [
     1,0,0,0,1,
     0,1,0,1,0,
     0,0,1,0,0,
@@ -336,7 +336,7 @@ static X: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static Y: [i32; 25] = [
+static Y: [u8; 25] = [
     1,0,0,0,1,
     0,1,0,1,0,
     0,0,1,0,0,
@@ -345,7 +345,7 @@ static Y: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static Z: [i32; 25] = [
+static Z: [u8; 25] = [
     1,1,1,1,0,
     0,0,0,1,0,
     0,0,1,0,0,
@@ -354,7 +354,7 @@ static Z: [i32; 25] = [
 ];
 
 #[rustfmt::skip]
-static MISSING: [i32; 25] = [
+static MISSING: [u8; 25] = [
     1,1,1,1,0,
     1,0,0,1,0,
     1,0,0,1,0,

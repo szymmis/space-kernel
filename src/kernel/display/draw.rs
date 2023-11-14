@@ -13,7 +13,7 @@ pub fn draw_rect(x: i32, y: i32, width: i32, height: i32, color: u8) {
     }
 }
 
-pub fn draw_bitmap(img: &[i32], x: i32, y: i32, width: i32, height: i32) {
+pub fn draw_bitmap(img: &[u8], x: i32, y: i32, width: i32, height: i32) {
     unsafe {
         for i in 0..height {
             for j in 0..width {
