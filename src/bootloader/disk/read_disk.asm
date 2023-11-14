@@ -3,7 +3,7 @@
 load_kernel_code:
     ; Read kernel from disk
     mov ah, 0x02 ; AH=2 - read sectors from drive
-    mov al, 32 ; Number of sectors to read
+    mov al, 54 ; Number of sectors to read
     mov ch, 0 ; Cylinder number
     mov cl, 2 ; Sector number
     mov dh, 0 ; Head number
