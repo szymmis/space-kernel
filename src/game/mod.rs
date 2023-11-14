@@ -1,11 +1,12 @@
 mod assets;
+mod explosion;
 mod invader;
 mod player;
 mod projectile;
 mod screen;
 mod swarm;
 
-use self::swarm::Swarm;
+use self::{explosion::Explosion, swarm::Swarm};
 use crate::{
     game::{
         player::Player,
@@ -25,6 +26,7 @@ pub struct Game {
     screen: ActiveScreen,
     player: Player,
     swarm: Swarm,
+    explosion: Explosion,
 }
 
 impl Game {
@@ -34,6 +36,7 @@ impl Game {
             screen: ActiveScreen::MainMenu,
             player: Player::new(),
             swarm: Swarm::new(),
+            explosion: Explosion::new(),
         }
     }
 

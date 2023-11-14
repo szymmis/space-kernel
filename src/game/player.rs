@@ -1,4 +1,4 @@
-use super::{invader::Invader, projectile::Projectile};
+use super::{invader::Invader, projectile::Projectile, GAME};
 use crate::kernel::display::draw::SCREEN_WIDTH;
 use game::assets::PLAYER_SPRITE;
 use kernel::display::draw::draw_bitmap;
@@ -62,6 +62,9 @@ impl Player {
             && (self.projectile.y >= invader.y && self.projectile.y <= invader.y + 8)
         {
             invader.dead = true;
+            unsafe {
+                GAME.explosion.explode(invader.x, invader.y);
+            }
             self.projectile.y = -10;
         }
     }

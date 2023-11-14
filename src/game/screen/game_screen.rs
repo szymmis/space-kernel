@@ -11,6 +11,7 @@ impl Screen for GameScreen {
         unsafe {
             GAME.player.draw();
             GAME.swarm.draw();
+            GAME.explosion.draw();
         }
     }
 
@@ -18,6 +19,7 @@ impl Screen for GameScreen {
         unsafe {
             GAME.player.update();
             GAME.swarm.update();
+            GAME.explosion.update();
         }
     }
 
