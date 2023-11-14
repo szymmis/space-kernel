@@ -71,3 +71,12 @@ pub enum Direction {
     Left,
     Right,
 }
+
+impl Direction {
+    pub fn swap(&self) -> Self {
+        match self {
+            Direction::Left => Direction::Right,
+            Direction::Right => Direction::Left,
+        }
+    }
+}

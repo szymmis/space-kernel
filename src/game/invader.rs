@@ -1,7 +1,7 @@
 use super::{
     assets::{GOLIATH_SPRITE, INVADER_SPRITE, SQUID_SPRITE},
     player::Direction,
-    GAME, INTERVAL,
+    GAME,
 };
 use crate::kernel::display::draw::draw_bitmap;
 
@@ -36,18 +36,20 @@ impl Invader {
     }
 
     pub fn update(&mut self) {
-        unsafe {
-            if GAME.ticks % INTERVAL == 0 {
-                self.x += match GAME.movement_direction {
-                    Direction::Left => -10,
-                    Direction::Right => 10,
-                };
-
-                if GAME.movement_count >= 7 {
-                    self.y += 15;
-                }
-            }
+        if self.dead {
+            return;
         }
+
+        unsafe {
+            GAME.player.check_collision(self);
+        }
+    }
+
+    pub fn do_move(&mut self, direction: &Direction, speed: i32) {
+        self.x += match direction {
+            Direction::Left => -speed,
+            Direction::Right => speed,
+        };
     }
 }
 

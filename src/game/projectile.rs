@@ -11,7 +11,7 @@ impl Projectile {
     }
 
     pub fn draw(&self) {
-        draw_rect(self.x, self.y, 1, 5, 0xF);
+        draw_rect(self.x, self.y, 1, 4, 0xF);
     }
 
     pub fn update(&mut self) {
