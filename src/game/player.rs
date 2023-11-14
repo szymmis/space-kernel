@@ -1,13 +1,15 @@
 use super::{invader::Invader, projectile::Projectile};
+use crate::kernel::display::draw::SCREEN_WIDTH;
 use game::assets::PLAYER_SPRITE;
 use kernel::display::draw::draw_bitmap;
 
-const MOVE_SPEED: i32 = 2;
+const MOVE_SPEED: i32 = 3;
 
 pub struct Player {
     x: i32,
     y: i32,
     projectile: Projectile,
+    movement: Option<Direction>,
 }
 
 impl Player {
@@ -16,6 +18,7 @@ impl Player {
             x: 320 / 2 - 2,
             y: 180,
             projectile: Projectile::new(),
+            movement: None,
         }
     }
 
@@ -25,6 +28,24 @@ impl Player {
     }
 
     pub fn update(&mut self) {
+        match self.movement {
+            Some(Direction::Left) => {
+                if self.x - MOVE_SPEED > 0 {
+                    self.x += -MOVE_SPEED;
+                } else {
+                    self.x = 0;
+                }
+            }
+            Some(Direction::Right) => {
+                if self.x + MOVE_SPEED < SCREEN_WIDTH - 5 {
+                    self.x += MOVE_SPEED;
+                } else {
+                    self.x = SCREEN_WIDTH - 5;
+                }
+            }
+            None => (),
+        };
+
         self.projectile.update();
     }
 
@@ -32,11 +53,8 @@ impl Player {
         self.projectile.launch((self.x + 2, self.y - 5))
     }
 
-    pub fn do_move(&mut self, direction: Direction) {
-        self.x += match direction {
-            Direction::Left => -MOVE_SPEED,
-            Direction::Right => MOVE_SPEED,
-        }
+    pub fn do_move(&mut self, direction: Option<Direction>) {
+        self.movement = direction;
     }
 
     pub fn check_collision(&mut self, invader: &mut Invader) {

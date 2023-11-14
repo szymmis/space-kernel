@@ -48,8 +48,8 @@ impl Game {
     pub fn init() {
         unsafe {
             GAME.init_invaders();
-            Keyboard::add_on_key_down_listener(|key| GAME.on_key_up(key));
-            Keyboard::add_on_key_up_listener(|key| GAME.on_key_down(key));
+            Keyboard::add_on_key_down_listener(|key| GAME.on_key_down(key));
+            Keyboard::add_on_key_up_listener(|key| GAME.on_key_up(key));
             Timer::add_timer_listener(|| GAME.on_tick())
         }
     }

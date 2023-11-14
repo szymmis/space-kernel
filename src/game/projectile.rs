@@ -7,7 +7,7 @@ pub struct Projectile {
 
 impl Projectile {
     pub fn new() -> Self {
-        Self { x: 0, y: 0 }
+        Self { x: 0, y: -10 }
     }
 
     pub fn draw(&self) {

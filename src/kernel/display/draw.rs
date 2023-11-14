@@ -1,7 +1,7 @@
 use super::glyphs;
 
-static SCREEN_WIDTH: i32 = 320;
-static SCREEN_HEIGHT: i32 = 200;
+pub static SCREEN_WIDTH: i32 = 320;
+pub static SCREEN_HEIGHT: i32 = 200;
 
 pub fn draw_rect(x: i32, y: i32, width: i32, height: i32, color: u8) {
     unsafe {

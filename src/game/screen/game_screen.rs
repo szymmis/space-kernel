@@ -50,8 +50,8 @@ impl Screen for GameScreen {
     fn on_key_down(key: Key) {
         unsafe {
             match key {
-                Key::ArrowLeft => GAME.player.do_move(Direction::Left),
-                Key::ArrowRigth => GAME.player.do_move(Direction::Right),
+                Key::ArrowLeft => GAME.player.do_move(Some(Direction::Left)),
+                Key::ArrowRigth => GAME.player.do_move(Some(Direction::Right)),
                 _ => (),
             }
         }
@@ -59,8 +59,12 @@ impl Screen for GameScreen {
 
     fn on_key_up(key: Key) {
         unsafe {
-            if let Key::Spacebar = key {
-                GAME.player.shoot();
+            match key {
+                Key::Spacebar => {
+                    GAME.player.shoot();
+                }
+                Key::ArrowLeft | Key::ArrowRigth => GAME.player.do_move(None),
+                _ => (),
             }
         }
     }
