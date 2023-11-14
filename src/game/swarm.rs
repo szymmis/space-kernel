@@ -13,6 +13,7 @@ static mut MOVE_INTERVAL: u32 = 20;
 
 pub struct Swarm {
     invaders: Vec<Invader>,
+    pub movement_count: i32,
     direction: Direction,
 }
 
@@ -20,6 +21,7 @@ impl Swarm {
     pub fn new() -> Self {
         Self {
             invaders: Vec::new(5 * 11),
+            movement_count: 0,
             direction: Direction::Right,
         }
     }
@@ -87,6 +89,12 @@ impl Swarm {
                 if GAME.ticks % MOVE_INTERVAL == 0 {
                     invader.do_move(&self.direction, MOVE_SPEED);
                 }
+            }
+        }
+
+        unsafe {
+            if GAME.ticks % MOVE_INTERVAL == 0 {
+                self.movement_count += 1;
             }
         }
 

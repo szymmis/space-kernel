@@ -1,5 +1,8 @@
 use super::{
-    assets::{GOLIATH_SPRITE, INVADER_SPRITE, SQUID_SPRITE},
+    assets::{
+        GOLIATH_2_SPRITE, GOLIATH_SPRITE, INVADER_2_SPRITE, INVADER_SPRITE, SQUID_2_SPRITE,
+        SQUID_SPRITE,
+    },
     player::Direction,
     GAME,
 };
@@ -28,10 +31,43 @@ impl Invader {
             return;
         }
 
-        match self.ty {
-            InvaderType::Invader => draw_bitmap(&INVADER_SPRITE, self.x, self.y, 11, 8),
-            InvaderType::Goliath => draw_bitmap(&GOLIATH_SPRITE, self.x, self.y, 12, 8),
-            InvaderType::Squid => draw_bitmap(&SQUID_SPRITE, self.x, self.y, 10, 8),
+        unsafe {
+            let odd_step = GAME.swarm.movement_count % 2 == 0;
+            match self.ty {
+                InvaderType::Invader => draw_bitmap(
+                    if odd_step {
+                        &INVADER_2_SPRITE
+                    } else {
+                        &INVADER_SPRITE
+                    },
+                    self.x,
+                    self.y,
+                    11,
+                    8,
+                ),
+                InvaderType::Goliath => draw_bitmap(
+                    if odd_step {
+                        &GOLIATH_2_SPRITE
+                    } else {
+                        &GOLIATH_SPRITE
+                    },
+                    self.x,
+                    self.y,
+                    12,
+                    8,
+                ),
+                InvaderType::Squid => draw_bitmap(
+                    if odd_step {
+                        &SQUID_2_SPRITE
+                    } else {
+                        &SQUID_SPRITE
+                    },
+                    self.x,
+                    self.y,
+                    10,
+                    8,
+                ),
+            }
         }
     }
 
