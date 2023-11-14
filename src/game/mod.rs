@@ -23,6 +23,7 @@ static mut GAME: LazyBox<Game> = LazyBox::new(Game::new);
 
 pub struct Game {
     ticks: u32,
+    score: i32,
     screen: ActiveScreen,
     player: Player,
     swarm: Swarm,
@@ -33,6 +34,7 @@ impl Game {
     fn new() -> Self {
         Game {
             ticks: 0,
+            score: 0,
             screen: ActiveScreen::MainMenu,
             player: Player::new(),
             swarm: Swarm::new(),
@@ -47,6 +49,13 @@ impl Game {
             Timer::add_timer_listener(|| GAME.on_tick());
             GAME.swarm.init();
         }
+    }
+
+    pub fn reset(&mut self) {
+        self.ticks = 0;
+        self.player.reset();
+        self.swarm.reset();
+        self.explosion.reset();
     }
 
     fn draw(&mut self) {

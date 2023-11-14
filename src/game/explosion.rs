@@ -34,4 +34,8 @@ impl Explosion {
             self.lifespan -= 1;
         }
     }
+
+    pub fn reset(&mut self) {
+        self.lifespan = 0;
+    }
 }

@@ -1,6 +1,9 @@
 use crate::{
     game::{player::Direction, GAME},
-    kernel::system::Key,
+    kernel::{
+        display::logger::{print, print_num},
+        system::Key,
+    },
 };
 
 use super::Screen;
@@ -12,6 +15,9 @@ impl Screen for GameScreen {
             GAME.player.draw();
             GAME.swarm.draw();
             GAME.explosion.draw();
+
+            print("SCORE");
+            print_num(GAME.score);
         }
     }
 
@@ -20,6 +26,10 @@ impl Screen for GameScreen {
             GAME.player.update();
             GAME.swarm.update();
             GAME.explosion.update();
+
+            if GAME.swarm.destroyed() {
+                GAME.reset();
+            }
         }
     }
 

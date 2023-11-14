@@ -49,6 +49,12 @@ impl Player {
         self.projectile.update();
     }
 
+    pub fn reset(&mut self) {
+        self.x = 320 / 2 - 2;
+        self.projectile.reset();
+        self.movement = None;
+    }
+
     pub fn shoot(&mut self) {
         self.projectile.launch((self.x + 2, self.y - 5))
     }
@@ -61,11 +67,13 @@ impl Player {
         if (self.projectile.x >= invader.x && self.projectile.x <= invader.x + 11)
             && (self.projectile.y >= invader.y && self.projectile.y <= invader.y + 8)
         {
-            invader.dead = true;
             unsafe {
+                invader.dead = true;
+                self.projectile.reset();
                 GAME.explosion.explode(invader.x, invader.y);
+                GAME.score += 1;
+                GAME.swarm.destroyed_count += 1;
             }
-            self.projectile.y = -10;
         }
     }
 }

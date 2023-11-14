@@ -13,16 +13,18 @@ static mut MOVE_INTERVAL: u32 = 20;
 
 pub struct Swarm {
     invaders: Vec<Invader>,
-    pub movement_count: i32,
     direction: Direction,
+    pub destroyed_count: i32,
+    pub movement_count: i32,
 }
 
 impl Swarm {
     pub fn new() -> Self {
         Self {
             invaders: Vec::new(5 * 11),
-            movement_count: 0,
             direction: Direction::Right,
+            movement_count: 0,
+            destroyed_count: 0,
         }
     }
 
@@ -46,10 +48,47 @@ impl Swarm {
         }
     }
 
+    pub fn reset(&mut self) {
+        self.destroyed_count = 0;
+        self.movement_count = 0;
+
+        for i in 0..SWARM_HEIGHT {
+            for j in 0..SWARM_WIDTH {
+                let invader = self.invaders.get((i * SWARM_WIDTH + j) as usize);
+                invader.x = (320 - 11 * 15) / 2 + (j * 15);
+                invader.y = 20 + 15 * i;
+                invader.dead = false;
+            }
+        }
+    }
+
     pub fn draw(&mut self) {
         for i in 0..self.invaders.len() {
             let invader = self.invaders.get(i);
             invader.draw();
+        }
+    }
+
+    pub fn update(&mut self) {
+        for i in 0..self.invaders.len() {
+            let invader = self.invaders.get(i);
+            invader.update();
+
+            unsafe {
+                if GAME.ticks % MOVE_INTERVAL == 0 {
+                    invader.do_move(&self.direction, MOVE_SPEED);
+                }
+            }
+        }
+
+        unsafe {
+            if GAME.ticks % MOVE_INTERVAL == 0 {
+                self.movement_count += 1;
+            }
+        }
+
+        if self.at_edge() {
+            self.direction = self.direction.swap()
         }
     }
 
@@ -80,26 +119,7 @@ impl Swarm {
         false
     }
 
-    pub fn update(&mut self) {
-        for i in 0..self.invaders.len() {
-            let invader = self.invaders.get(i);
-            invader.update();
-
-            unsafe {
-                if GAME.ticks % MOVE_INTERVAL == 0 {
-                    invader.do_move(&self.direction, MOVE_SPEED);
-                }
-            }
-        }
-
-        unsafe {
-            if GAME.ticks % MOVE_INTERVAL == 0 {
-                self.movement_count += 1;
-            }
-        }
-
-        if self.at_edge() {
-            self.direction = self.direction.swap()
-        }
+    pub fn destroyed(&self) -> bool {
+        self.destroyed_count >= (self.invaders.len() as i32)
     }
 }

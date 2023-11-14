@@ -14,6 +14,11 @@ impl Projectile {
         draw_rect(self.x, self.y, 1, 4, 0xF);
     }
 
+    pub fn reset(&mut self) {
+        self.x = 0;
+        self.y = -10;
+    }
+
     pub fn update(&mut self) {
         if self.y > -10 {
             self.y -= 5;
