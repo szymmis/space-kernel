@@ -5,6 +5,7 @@ use super::{draw, glyphs::get_glyph_width};
 static mut OFFSET_X: i32 = 0;
 static mut OFFSET_Y: i32 = 0;
 
+#[allow(dead_code)]
 pub fn print(text: &str) {
     unsafe {
         draw::draw_text(text, OFFSET_X, OFFSET_Y);
@@ -14,6 +15,7 @@ pub fn print(text: &str) {
     }
 }
 
+#[allow(dead_code)]
 pub fn print_num(n: i32) {
     let mut str = [b'\0'; 12];
 

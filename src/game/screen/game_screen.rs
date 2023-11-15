@@ -1,11 +1,15 @@
 use super::Screen;
 use crate::{
     game::{
+        assets::PLAYER_SPRITE,
         entity::{Direction, Entity},
         GAME,
     },
     kernel::{
-        display::logger::{print, print_num},
+        display::{
+            draw::{draw_bitmap, draw_number, draw_rect, draw_text, SCREEN_HEIGHT, SCREEN_WIDTH},
+            logger::{print, print_num},
+        },
         system::Key,
     },
 };
@@ -18,8 +22,14 @@ impl Screen for GameScreen {
             GAME.swarm.draw();
             GAME.explosion.draw();
 
-            print("SCORE");
-            print_num(GAME.score);
+            draw_text("SCORE", 5, 5);
+            draw_number(GAME.score, 5, 13);
+
+            draw_rect(0, SCREEN_HEIGHT - 15, SCREEN_WIDTH, 1, 0xA);
+            draw_number(GAME.player.lives, 5, SCREEN_HEIGHT - 10);
+            for i in 0..GAME.player.lives {
+                draw_bitmap(&PLAYER_SPRITE, 15 + 10 * i, SCREEN_HEIGHT - 10, 5, 5, 0xA);
+            }
         }
     }
 

@@ -37,6 +37,7 @@ impl Entity for Invader {
                     self.y,
                     11,
                     8,
+                    0xF,
                 ),
                 InvaderType::Goliath => draw_bitmap(
                     if odd_step {
@@ -48,6 +49,7 @@ impl Entity for Invader {
                     self.y,
                     12,
                     8,
+                    0xF,
                 ),
                 InvaderType::Squid => draw_bitmap(
                     if odd_step {
@@ -59,6 +61,7 @@ impl Entity for Invader {
                     self.y,
                     10,
                     8,
+                    0xF,
                 ),
             }
         }

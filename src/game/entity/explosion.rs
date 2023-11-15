@@ -11,7 +11,7 @@ pub struct Explosion {
 impl Entity for Explosion {
     fn draw(&self) {
         if self.lifespan > 0 {
-            draw_bitmap(&EXPLOSION_SPRITE, self.x, self.y, 13, 9);
+            draw_bitmap(&EXPLOSION_SPRITE, self.x, self.y, 13, 9, 0xF);
         }
     }
 

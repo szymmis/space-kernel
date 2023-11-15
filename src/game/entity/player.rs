@@ -10,11 +10,12 @@ pub struct Player {
     y: i32,
     projectile: Projectile,
     movement: Option<Direction>,
+    pub lives: i32,
 }
 
 impl Entity for Player {
     fn draw(&self) {
-        draw_bitmap(&PLAYER_SPRITE, self.x, 180, 5, 5);
+        draw_bitmap(&PLAYER_SPRITE, self.x, self.y, 5, 5, 0xA);
         self.projectile.draw();
     }
 
@@ -51,9 +52,10 @@ impl Player {
     pub fn new() -> Self {
         Self {
             x: 320 / 2 - 2,
-            y: 180,
+            y: 175,
             projectile: Projectile::new(),
             movement: None,
+            lives: 3,
         }
     }
 

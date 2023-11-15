@@ -57,7 +57,7 @@ impl Entity for Swarm {
             for j in 0..SWARM_WIDTH {
                 let invader = self.invaders.get((i * SWARM_WIDTH + j) as usize);
                 invader.x = (320 - 11 * 15) / 2 + (j * 15);
-                invader.y = 20 + 15 * i;
+                invader.y = 25 + 15 * i;
                 invader.dead = false;
             }
         }
@@ -87,7 +87,7 @@ impl Swarm {
 
                 self.invaders.push(Invader::new(
                     (320 - 11 * 15) / 2 + (j * 15),
-                    20 + 15 * i,
+                    25 + 15 * i,
                     ty,
                 ))
             }
