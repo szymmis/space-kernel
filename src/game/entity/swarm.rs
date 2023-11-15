@@ -1,7 +1,7 @@
 use super::{
+    super::GAME,
     invader::{Invader, InvaderType},
-    player::Direction,
-    GAME,
+    Direction, Entity,
 };
 use crate::kernel::{display::draw::SCREEN_WIDTH, mem::vec::Vec};
 
@@ -16,6 +16,52 @@ pub struct Swarm {
     direction: Direction,
     pub destroyed_count: i32,
     pub movement_count: i32,
+}
+
+impl Entity for Swarm {
+    fn draw(&self) {
+        for i in 0..self.invaders.len() {
+            let invader = self.invaders.get_const(i);
+            invader.draw();
+        }
+    }
+
+    fn update(&mut self) {
+        for i in 0..self.invaders.len() {
+            let invader = self.invaders.get(i);
+            invader.update();
+
+            unsafe {
+                if GAME.ticks % MOVE_INTERVAL == 0 {
+                    invader.do_move(&self.direction, MOVE_SPEED);
+                }
+            }
+        }
+
+        unsafe {
+            if GAME.ticks % MOVE_INTERVAL == 0 {
+                self.movement_count += 1;
+            }
+        }
+
+        if self.at_edge() {
+            self.direction = self.direction.swap()
+        }
+    }
+
+    fn reset(&mut self) {
+        self.destroyed_count = 0;
+        self.movement_count = 0;
+
+        for i in 0..SWARM_HEIGHT {
+            for j in 0..SWARM_WIDTH {
+                let invader = self.invaders.get((i * SWARM_WIDTH + j) as usize);
+                invader.x = (320 - 11 * 15) / 2 + (j * 15);
+                invader.y = 20 + 15 * i;
+                invader.dead = false;
+            }
+        }
+    }
 }
 
 impl Swarm {
@@ -45,50 +91,6 @@ impl Swarm {
                     ty,
                 ))
             }
-        }
-    }
-
-    pub fn reset(&mut self) {
-        self.destroyed_count = 0;
-        self.movement_count = 0;
-
-        for i in 0..SWARM_HEIGHT {
-            for j in 0..SWARM_WIDTH {
-                let invader = self.invaders.get((i * SWARM_WIDTH + j) as usize);
-                invader.x = (320 - 11 * 15) / 2 + (j * 15);
-                invader.y = 20 + 15 * i;
-                invader.dead = false;
-            }
-        }
-    }
-
-    pub fn draw(&mut self) {
-        for i in 0..self.invaders.len() {
-            let invader = self.invaders.get(i);
-            invader.draw();
-        }
-    }
-
-    pub fn update(&mut self) {
-        for i in 0..self.invaders.len() {
-            let invader = self.invaders.get(i);
-            invader.update();
-
-            unsafe {
-                if GAME.ticks % MOVE_INTERVAL == 0 {
-                    invader.do_move(&self.direction, MOVE_SPEED);
-                }
-            }
-        }
-
-        unsafe {
-            if GAME.ticks % MOVE_INTERVAL == 0 {
-                self.movement_count += 1;
-            }
-        }
-
-        if self.at_edge() {
-            self.direction = self.direction.swap()
         }
     }
 

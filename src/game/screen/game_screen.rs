@@ -1,12 +1,14 @@
+use super::Screen;
 use crate::{
-    game::{player::Direction, GAME},
+    game::{
+        entity::{Direction, Entity},
+        GAME,
+    },
     kernel::{
         display::logger::{print, print_num},
         system::Key,
     },
 };
-
-use super::Screen;
 
 pub struct GameScreen;
 impl Screen for GameScreen {

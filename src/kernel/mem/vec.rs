@@ -24,6 +24,10 @@ impl<T> Vec<T> {
         }
     }
 
+    pub fn get_const(&self, i: usize) -> &T {
+        unsafe { &*self.data.add(i) }
+    }
+
     pub fn get(&mut self, i: usize) -> &mut T {
         unsafe { &mut *self.data.add(i) }
     }
@@ -39,6 +43,7 @@ impl<T> Vec<T> {
         }
     }
 
+    #[allow(dead_code)]
     pub fn remove(&mut self, i: usize) {
         if i >= self.length {
             return;

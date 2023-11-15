@@ -1,12 +1,14 @@
-use super::{
+use crate::game::{
     assets::{
         GOLIATH_2_SPRITE, GOLIATH_SPRITE, INVADER_2_SPRITE, INVADER_SPRITE, SQUID_2_SPRITE,
         SQUID_SPRITE,
     },
-    player::Direction,
+    entity::Direction,
     GAME,
 };
 use crate::kernel::display::draw::draw_bitmap;
+
+use super::Entity;
 
 #[derive(Clone, Copy)]
 pub struct Invader {
@@ -16,17 +18,8 @@ pub struct Invader {
     ty: InvaderType,
 }
 
-impl Invader {
-    pub fn new(x: i32, y: i32, ty: InvaderType) -> Self {
-        Self {
-            x,
-            y,
-            ty,
-            dead: false,
-        }
-    }
-
-    pub fn draw(&self) {
+impl Entity for Invader {
+    fn draw(&self) {
         if self.dead {
             return;
         }
@@ -71,13 +64,26 @@ impl Invader {
         }
     }
 
-    pub fn update(&mut self) {
+    fn update(&mut self) {
         if self.dead {
             return;
         }
 
         unsafe {
             GAME.player.check_collision(self);
+        }
+    }
+
+    fn reset(&mut self) {}
+}
+
+impl Invader {
+    pub fn new(x: i32, y: i32, ty: InvaderType) -> Self {
+        Self {
+            x,
+            y,
+            ty,
+            dead: false,
         }
     }
 

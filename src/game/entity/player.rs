@@ -1,5 +1,5 @@
-use super::{invader::Invader, projectile::Projectile, GAME};
-use crate::kernel::display::draw::SCREEN_WIDTH;
+use super::{invader::Invader, projectile::Projectile, Direction, Entity};
+use crate::{game::GAME, kernel::display::draw::SCREEN_WIDTH};
 use game::assets::PLAYER_SPRITE;
 use kernel::display::draw::draw_bitmap;
 
@@ -12,22 +12,13 @@ pub struct Player {
     movement: Option<Direction>,
 }
 
-impl Player {
-    pub fn new() -> Self {
-        Self {
-            x: 320 / 2 - 2,
-            y: 180,
-            projectile: Projectile::new(),
-            movement: None,
-        }
-    }
-
-    pub fn draw(&self) {
+impl Entity for Player {
+    fn draw(&self) {
         draw_bitmap(&PLAYER_SPRITE, self.x, 180, 5, 5);
         self.projectile.draw();
     }
 
-    pub fn update(&mut self) {
+    fn update(&mut self) {
         match self.movement {
             Some(Direction::Left) => {
                 if self.x - MOVE_SPEED > 0 {
@@ -49,10 +40,21 @@ impl Player {
         self.projectile.update();
     }
 
-    pub fn reset(&mut self) {
+    fn reset(&mut self) {
         self.x = 320 / 2 - 2;
         self.projectile.reset();
         self.movement = None;
+    }
+}
+
+impl Player {
+    pub fn new() -> Self {
+        Self {
+            x: 320 / 2 - 2,
+            y: 180,
+            projectile: Projectile::new(),
+            movement: None,
+        }
     }
 
     pub fn shoot(&mut self) {
@@ -74,20 +76,6 @@ impl Player {
                 GAME.score += 1;
                 GAME.swarm.destroyed_count += 1;
             }
-        }
-    }
-}
-
-pub enum Direction {
-    Left,
-    Right,
-}
-
-impl Direction {
-    pub fn swap(&self) -> Self {
-        match self {
-            Direction::Left => Direction::Right,
-            Direction::Right => Direction::Left,
         }
     }
 }

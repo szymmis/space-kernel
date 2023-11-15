@@ -1,15 +1,10 @@
 mod assets;
-mod explosion;
-mod invader;
-mod player;
-mod projectile;
+mod entity;
 mod screen;
-mod swarm;
 
-use self::{explosion::Explosion, swarm::Swarm};
 use crate::{
     game::{
-        player::Player,
+        entity::{Entity, Explosion, Player, Swarm},
         screen::{ActiveScreen, GameOverScreen, GameScreen, MenuScreen, Screen},
     },
     kernel::{
