@@ -27,6 +27,32 @@ pub fn draw_bitmap(img: &[u8], x: i32, y: i32, width: i32, height: i32, color: u
     }
 }
 
+pub fn draw_bitmap_scaled(
+    img: &[u8],
+    x: i32,
+    y: i32,
+    width: i32,
+    height: i32,
+    color: u8,
+    scale: i32,
+) {
+    unsafe {
+        for i in 0..height {
+            for j in 0..width {
+                if img[(i * width + j) as usize] == 1 {
+                    for k in 0..scale {
+                        for l in 0..scale {
+                            *((0xA0000
+                                + (SCREEN_WIDTH * (y + (i * scale + k)) + (x + (j * scale + l))))
+                                as *mut u8) = color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 pub fn draw_char(c: char, x: i32, y: i32) {
     if c != ' ' {
         let glyph = glyphs::get_glyph(c);
@@ -42,6 +68,18 @@ pub fn draw_text(text: &str, x: i32, y: i32) {
             draw_char(c, x + offset, y)
         }
         offset += glyphs::get_glyph_width(c);
+    }
+}
+
+pub fn draw_text_scaled(text: &str, x: i32, y: i32, color: u8, scale: i32) {
+    let mut offset = 0;
+
+    for c in text.chars() {
+        if c != ' ' {
+            let glyph = glyphs::get_glyph(c);
+            draw_bitmap_scaled(glyph, x + offset, y, 5, 5, color, scale);
+        }
+        offset += glyphs::get_glyph_width(c) * scale;
     }
 }
 
