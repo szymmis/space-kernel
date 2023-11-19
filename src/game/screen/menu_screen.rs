@@ -64,5 +64,5 @@ impl Screen for MenuScreen {
         }
     }
 
-    fn on_key_up(key: Key) {}
+    fn on_key_up(_key: Key) {}
 }

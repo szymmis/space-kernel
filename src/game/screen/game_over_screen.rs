@@ -23,5 +23,5 @@ impl Screen for GameOverScreen {
         }
     }
 
-    fn on_key_up(key: Key) {}
+    fn on_key_up(_key: Key) {}
 }

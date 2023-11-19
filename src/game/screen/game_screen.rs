@@ -6,9 +6,8 @@ use crate::{
         GAME,
     },
     kernel::{
-        display::{
-            draw::{draw_bitmap, draw_number, draw_rect, draw_text, SCREEN_HEIGHT, SCREEN_WIDTH},
-            logger::{print, print_num},
+        display::draw::{
+            draw_bitmap, draw_number, draw_rect, draw_text, SCREEN_HEIGHT, SCREEN_WIDTH,
         },
         system::Key,
     },

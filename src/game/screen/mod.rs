@@ -7,6 +7,7 @@ use crate::kernel::system::Key;
 pub enum ActiveScreen {
     MainMenu,
     Game,
+    #[allow(dead_code)]
     GameOver,
 }
 
