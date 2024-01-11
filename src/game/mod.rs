@@ -5,12 +5,12 @@ mod screen;
 use crate::{
     game::{
         entity::{Entity, Explosion, Player, Swarm},
-        screen::{ActiveScreen, GameOverScreen, GameScreen, MenuScreen, Screen},
+        screen::{Screen, MENU_SCREEN},
     },
     kernel::{
-        display::logger::cls,
+        display::logger,
         mem::boxed::LazyBox,
-        system::{Key, Keyboard, Timer},
+        system::{Keyboard, Timer},
     },
 };
 
@@ -19,7 +19,7 @@ static mut GAME: LazyBox<Game> = LazyBox::new(Game::new);
 pub struct Game {
     ticks: u32,
     score: i32,
-    screen: ActiveScreen,
+    screen: &'static dyn Screen,
     player: Player,
     swarm: Swarm,
     explosion: Explosion,
@@ -30,7 +30,7 @@ impl Game {
         Game {
             ticks: 0,
             score: 0,
-            screen: ActiveScreen::MainMenu,
+            screen: &MENU_SCREEN,
             player: Player::new(),
             swarm: Swarm::new(),
             explosion: Explosion::new(),
@@ -39,8 +39,8 @@ impl Game {
 
     pub fn init() {
         unsafe {
-            Keyboard::add_on_key_down_listener(|key| GAME.on_key_down(key));
-            Keyboard::add_on_key_up_listener(|key| GAME.on_key_up(key));
+            Keyboard::add_on_key_down_listener(|key| GAME.screen.on_key_down(key));
+            Keyboard::add_on_key_up_listener(|key| GAME.screen.on_key_up(key));
             Timer::add_timer_listener(|| GAME.on_tick());
             GAME.swarm.init();
         }
@@ -53,43 +53,11 @@ impl Game {
         self.explosion.reset();
     }
 
-    fn draw(&mut self) {
-        match self.screen {
-            ActiveScreen::MainMenu => MenuScreen::draw(),
-            ActiveScreen::Game => GameScreen::draw(),
-            ActiveScreen::GameOver => GameOverScreen::draw(),
-        }
-    }
-
-    fn update(&self) {
-        match self.screen {
-            ActiveScreen::MainMenu => MenuScreen::update(),
-            ActiveScreen::Game => GameScreen::update(),
-            ActiveScreen::GameOver => GameOverScreen::update(),
-        }
-    }
-
     pub fn on_tick(&mut self) {
         self.ticks += 1;
 
-        cls();
-        self.draw();
-        self.update();
-    }
-
-    fn on_key_down(&mut self, key: Key) {
-        match self.screen {
-            ActiveScreen::MainMenu => MenuScreen::on_key_down(key),
-            ActiveScreen::Game => GameScreen::on_key_down(key),
-            ActiveScreen::GameOver => GameOverScreen::on_key_down(key),
-        }
-    }
-
-    fn on_key_up(&mut self, key: Key) {
-        match self.screen {
-            ActiveScreen::MainMenu => MenuScreen::on_key_up(key),
-            ActiveScreen::Game => GameScreen::on_key_up(key),
-            ActiveScreen::GameOver => GameOverScreen::on_key_up(key),
-        }
+        logger::cls();
+        self.screen.draw();
+        self.screen.update();
     }
 }

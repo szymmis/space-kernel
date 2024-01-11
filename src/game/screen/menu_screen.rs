@@ -12,11 +12,11 @@ use crate::{
     },
 };
 
-use super::{ActiveScreen, Screen};
+use super::{Screen, GAME_SCREEN};
 
 pub struct MenuScreen;
 impl Screen for MenuScreen {
-    fn draw() {
+    fn draw(&self) {
         unsafe {
             let title = "Space Kernel";
             draw_text_scaled(
@@ -56,13 +56,13 @@ impl Screen for MenuScreen {
         }
     }
 
-    fn update() {}
+    fn update(&self) {}
 
-    fn on_key_down(key: Key) {
+    fn on_key_down(&self, key: Key) {
         if let Key::Enter = key {
-            unsafe { GAME.screen = ActiveScreen::Game }
+            unsafe { GAME.screen = &GAME_SCREEN }
         }
     }
 
-    fn on_key_up(_key: Key) {}
+    fn on_key_up(&self, _key: Key) {}
 }

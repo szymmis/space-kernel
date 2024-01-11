@@ -8,9 +8,7 @@ pub unsafe fn malloc<T>(size: usize) -> *mut T {
 }
 
 pub unsafe fn memcpy<T>(from: *const T, to: *const T, size: usize) {
-    let mut i = 0;
-    while i < size {
+    for i in 0..size {
         *(to as *mut u8).add(i) = *(from as *mut u8).add(i);
-        i += 1;
     }
 }

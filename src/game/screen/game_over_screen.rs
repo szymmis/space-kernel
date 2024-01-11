@@ -6,22 +6,22 @@ use crate::{
     },
 };
 
-use super::{ActiveScreen, Screen};
+use super::{Screen, GAME_SCREEN};
 
 pub struct GameOverScreen;
 impl Screen for GameOverScreen {
-    fn draw() {
+    fn draw(&self) {
         let msg = "You have lost";
         draw_text(msg, 320 / 2 - measure_str(msg) / 2, 200 / 2 - 2)
     }
 
-    fn update() {}
+    fn update(&self) {}
 
-    fn on_key_down(key: Key) {
+    fn on_key_down(&self, key: Key) {
         if let Key::Enter = key {
-            unsafe { GAME.screen = ActiveScreen::Game }
+            unsafe { GAME.screen = &GAME_SCREEN }
         }
     }
 
-    fn on_key_up(_key: Key) {}
+    fn on_key_up(&self, _key: Key) {}
 }

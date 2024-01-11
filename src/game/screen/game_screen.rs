@@ -15,7 +15,7 @@ use crate::{
 
 pub struct GameScreen;
 impl Screen for GameScreen {
-    fn draw() {
+    fn draw(&self) {
         unsafe {
             GAME.player.draw();
             GAME.swarm.draw();
@@ -32,7 +32,7 @@ impl Screen for GameScreen {
         }
     }
 
-    fn update() {
+    fn update(&self) {
         unsafe {
             GAME.player.update();
             GAME.swarm.update();
@@ -44,7 +44,7 @@ impl Screen for GameScreen {
         }
     }
 
-    fn on_key_down(key: Key) {
+    fn on_key_down(&self, key: Key) {
         unsafe {
             match key {
                 Key::ArrowLeft => GAME.player.do_move(Some(Direction::Left)),
@@ -54,7 +54,7 @@ impl Screen for GameScreen {
         }
     }
 
-    fn on_key_up(key: Key) {
+    fn on_key_up(&self, key: Key) {
         unsafe {
             match key {
                 Key::Spacebar => {
