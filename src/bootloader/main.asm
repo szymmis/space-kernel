@@ -7,7 +7,7 @@
 
 [BITS 32] ; Kernel is running in 32-bit protected mode
 start_kernel:	
-	call 0x1000 ; Jump to code loaded in read_disk.asm
+	call 0x8000 ; Jump to code loaded in read_disk.asm
 	jmp $ ; Loop forever to prevent execution of random data
 
 TIMES 510 - ($ - $$) db 0 ; Fill the rest of sector with 0s up to 510 bytes

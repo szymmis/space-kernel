@@ -16,12 +16,12 @@ nasm $SRC/kernel/main.asm -I $SRC/kernel -f elf -o $OUT/kernel_entry.o
 cargo build --release
 
 # Link kernel entry asm code and kernel Rust code to 32bit binary format
-# **-Ttext 0x1000**: Set the entry point of the kernel to 0x1000
+# **-Ttext 0x8000**: Set the entry point of the kernel to 0x8000
 # That's the address where the bootloader loads the kernel code using BIOS interrupt 0x02 (Read Sector)
 # **no-PIE**: Disable position independend code generation
 # https://en.wikipedia.org/wiki/Position-independent_code
-# All addresses will be adjusted to explicit 0x1000 offset because that's where the code is loaded
-ld -m elf_i386 -no-PIE -Ttext 0x1000 $OUT/kernel_entry.o $OUT/x86_32-unknown-none/release/libspace_kernel.a -o $OUT/kernel.bin --oformat binary
+# All addresses will be adjusted to explicit 0x8000 offset because that's where the code is loaded
+ld -m elf_i386 -no-PIE -Ttext 0x8000 $OUT/kernel_entry.o $OUT/x86_32-unknown-none/release/libspace_kernel.a -o $OUT/kernel.bin --oformat binary
 
 # Create  empty disk image and copy bootloader and kernel code to it
 # 2880x512B = 1.44MB (floppy disk size)
